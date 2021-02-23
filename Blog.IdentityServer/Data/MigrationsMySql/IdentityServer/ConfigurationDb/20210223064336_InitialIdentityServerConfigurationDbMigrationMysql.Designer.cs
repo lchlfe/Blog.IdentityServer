@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20200715033226_InitConfigurationDbV4")]
-    partial class InitConfigurationDbV4
+    [Migration("20210223064336_InitialIdentityServerConfigurationDbMigrationMysql")]
+    partial class InitialIdentityServerConfigurationDbMigrationMysql
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

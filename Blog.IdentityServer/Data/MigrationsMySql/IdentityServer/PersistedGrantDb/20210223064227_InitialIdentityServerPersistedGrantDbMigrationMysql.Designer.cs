@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20200509165052_InitialIdentityServerPersistedGrantDbMigrationMysql")]
+    [Migration("20210223064227_InitialIdentityServerPersistedGrantDbMigrationMysql")]
     partial class InitialIdentityServerPersistedGrantDbMigrationMysql
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -38,6 +38,10 @@ namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.PersistedGrant
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .HasMaxLength(50000);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasMaxLength(200);
+
                     b.Property<string>("DeviceCode")
                         .IsRequired()
                         .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
@@ -46,6 +50,10 @@ namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.PersistedGrant
                     b.Property<DateTime?>("Expiration")
                         .IsRequired()
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
 
                     b.Property<string>("SubjectId")
                         .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
@@ -72,6 +80,9 @@ namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.PersistedGrant
                         .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
                         .HasMaxLength(200);
 
+                    b.Property<DateTime?>("ConsumedTime")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime(6)");
 
@@ -80,8 +91,16 @@ namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.PersistedGrant
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .HasMaxLength(50000);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasMaxLength(200);
+
                     b.Property<DateTime?>("Expiration")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
 
                     b.Property<string>("SubjectId")
                         .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
@@ -97,6 +116,8 @@ namespace Blog.IdentityServer.Data.MigrationsMySql.IdentityServer.PersistedGrant
                     b.HasIndex("Expiration");
 
                     b.HasIndex("SubjectId", "ClientId", "Type");
+
+                    b.HasIndex("SubjectId", "SessionId", "Type");
 
                     b.ToTable("PersistedGrants");
                 });
